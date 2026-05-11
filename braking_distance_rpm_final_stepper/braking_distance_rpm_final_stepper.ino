@@ -6,23 +6,6 @@
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 // ================= STEPPER =================
-//
-//  Two NEMA17 motors wired in PARALLEL to a single TB6600 driver.
-//  Both motors share PUL/DIR — one AccelStepper object drives both.
-//
-//  TB6600 wiring:
-//    PUL+ → GPIO 26    DIR+ → GPIO 27    ENA+ → GPIO 25
-//    PUL-/DIR-/ENA-  → GND
-//
-//  Motor wiring (parallel into TB6600 output terminals):
-//    A+ → Motor1 A+  AND  Motor2 A+
-//    A- → Motor1 A-  AND  Motor2 A-
-//    B+ → Motor1 B+  AND  Motor2 B+
-//    B- → Motor1 B-  AND  Motor2 B-
-//
-//  TB6600 current setting = sum of both motors
-//    e.g. two NEMA17 @ 1.5A each → set TB6600 to 3.0A
-
 AccelStepper stepper(AccelStepper::DRIVER, 26, 27);
 
 // ================= PINS =================
@@ -33,36 +16,7 @@ AccelStepper stepper(AccelStepper::DRIVER, 26, 27);
 // ================= WHEEL CONFIG =================
 #define MAGNETS         8           // 8 physical magnets on wheel
 #define WHEEL_RADIUS_M  0.2032f     // tyre radius in metres (user specified)
-// Circumference = 2 × π × r = 2 × 3.1416 × 0.2032 = 1.2767 m
-// Speed (km/h)  = RPM × circumference(m) × 60(min→hr) ÷ 1000(m→km)
-//              = RPM × 2 × π × 0.2032 × 60 / 1000
-//
-// OLD (WRONG) formula was: rpm * PI * DIAMETER(0.085) * 60 / 1000
-//   Error 1 – used a tiny test-wheel diameter (0.085m) instead of real tyre
-//   Error 2 – formula should use 2πr (circumference), not just πd
-//             (πd = circumference only when d is the full diameter, but
-//              0.085 was being used as "diameter" of the wrong wheel)
-// Both errors together caused ~4.8× underreading of speed.
-
 #define PI_VAL          3.14159f
-
-// ================= STEPPER / DISPLACEMENT CONFIG =================
-//
-//  ┌─────────────────────────────────────────────────────────┐
-//  │              DEBUG — ONLY CHANGE THESE                  │
-//  │                                                        │
-//  │  TARGET_MM          : linear travel in mm              │
-//  │    1.0 mm → 100 steps                                  │
-//  │    2.0 mm → 200 steps  (default)                       │
-//  │    3.0 mm → 300 steps                                  │
-//  │                                                        │
-//  │  ACTUATOR_SPEED_KMPH: speed threshold for actuation    │
-//  │                                                        │
-//  │  STEPPER_MAX_SPEED  : steps/sec (higher = faster)      │
-//  │  STEPPER_ACCEL      : steps/sec² (higher = snappier)   │
-//  │    Recommended fast : 4000 / 8000                      │
-//  │    Recommended slow : 800  / 400                       │
-//  └─────────────────────────────────────────────────────────┘
 
 #define STEPS_PER_REV        200      // NEMA17 full steps/rev
 #define LEAD_MM              2.0f     // lead screw pitch in mm
@@ -71,18 +25,15 @@ AccelStepper stepper(AccelStepper::DRIVER, 26, 27);
 #define STEPPER_MAX_SPEED    4000     // ← TUNE: steps/sec
 #define STEPPER_ACCEL        8000     // ← TUNE: steps/sec²
 
-// Auto-calculated — do not edit
-// Steps/mm = STEPS_PER_REV / LEAD_MM = 200/2 = 100 steps/mm
-// TARGET_STEPS = TARGET_MM × steps/mm = 2.0 × 100 = 200 steps
 #define TARGET_STEPS  ((long)((TARGET_MM / LEAD_MM) * STEPS_PER_REV))
 
 // ================= NOISE / FILTER TUNING =================
-#define PULSE_DEBOUNCE_US      12000
+#define PULSE_DEBOUNCE_US      10000
 #define PIN_CONFIRM_DELAY_US    2000
 #define PIN_CONFIRM_DELAY2_US   4000
 #define SPEED_WINDOW_MS          500
 #define RPM_ZERO_THRESHOLD         2
-#define RPM_MAX_SANITY           500
+#define RPM_MAX_SANITY           800
 #define ENGAGE_STREAK              3
 #define DISENGAGE_STREAK           4
 
