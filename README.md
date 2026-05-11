@@ -2,7 +2,7 @@
 A ESP32-based system that measures real-time wheel speed (RPM/kmph) via a Hall effect sensor and calculates braking distance when the brake is applied. A dual NEMA17 stepper motor actuator (driven by TB6600) physically extends/retracts based on speed and brake state.
 
 # Team Members
-From Department of Automobile and Mechanical Engineering , Thapathali campus, IOE
+From Department of Automobile and Mechanical Engineering , Thapathali campus, IOE.
 * **Anish Bimali** (THA078BAM003)
 * **Mahesh Giri**(THA078BAM029)
 * **Shishir Khanal**(THA078BAM038)
