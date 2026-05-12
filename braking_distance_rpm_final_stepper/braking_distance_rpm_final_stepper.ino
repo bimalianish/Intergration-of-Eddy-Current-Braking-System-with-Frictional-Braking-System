@@ -20,7 +20,7 @@ AccelStepper stepper(AccelStepper::DRIVER, 26, 27);
 
 #define STEPS_PER_REV        200      // NEMA17 full steps/rev
 #define LEAD_MM              2.0f     
-#define TARGET_MM            4.0f     
+#define TARGET_MM            6.0f     
 #define ACTUATOR_SPEED_KMPH  30.0f   
 #define STEPPER_MAX_SPEED    4000     
 #define STEPPER_ACCEL        8000     
@@ -38,7 +38,7 @@ AccelStepper stepper(AccelStepper::DRIVER, 26, 27);
 #define DISENGAGE_STREAK           4
 
 // ================= BRAKING DISTANCE CONFIG =================
-#define BRAKE_TRIGGER_KMPH   15.0f
+#define BRAKE_TRIGGER_KMPH   30.0f
 #define BRAKE_DISPLAY_MS     10000
 
 // ================= VARIABLES =================
