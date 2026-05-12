@@ -15,12 +15,12 @@ AccelStepper stepper(AccelStepper::DRIVER, 26, 27);
 
 // ================= WHEEL CONFIG =================
 #define MAGNETS         8           // 8 physical magnets on wheel
-#define WHEEL_RADIUS_M  0.2032f     // tyre radius in metres (user specified)
+#define WHEEL_RADIUS_M  0.2032f     
 #define PI_VAL          3.14159f
 
 #define STEPS_PER_REV        200      // NEMA17 full steps/rev
 #define LEAD_MM              2.0f     
-#define TARGET_MM            2.0f     
+#define TARGET_MM            4.0f     
 #define ACTUATOR_SPEED_KMPH  30.0f   
 #define STEPPER_MAX_SPEED    4000     
 #define STEPPER_ACCEL        8000     
@@ -293,19 +293,7 @@ void updateBrakeDist() {
     }
   }
 }
-
 // ================= MOTOR CONTROL =================
-//
-//  AccelStepper.moveTo() sets the target position.
-//  The library handles smooth acceleration + deceleration automatically
-//  via stepper.run() called every loop().
-//
-//  Calling moveTo() repeatedly with the same value is safe — no effect
-//  if already at or moving to that position.
-//
-//  EXTEND  → speed >= ACTUATOR_SPEED_KMPH AND brake pressed → 2mm forward
-//  RETRACT → speed <  ACTUATOR_SPEED_KMPH OR  brake released → back to 0
-
 void controlMotor() {
   bool pedalPressed = isBrakePressed();
 
