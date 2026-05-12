@@ -19,11 +19,11 @@ AccelStepper stepper(AccelStepper::DRIVER, 26, 27);
 #define PI_VAL          3.14159f
 
 #define STEPS_PER_REV        200      // NEMA17 full steps/rev
-#define LEAD_MM              2.0f     // lead screw pitch in mm
-#define TARGET_MM            2.0f     // ← TUNE: desired travel in mm
-#define ACTUATOR_SPEED_KMPH  15.0f    // ← TUNE: speed threshold (km/h)
-#define STEPPER_MAX_SPEED    4000     // ← TUNE: steps/sec
-#define STEPPER_ACCEL        8000     // ← TUNE: steps/sec²
+#define LEAD_MM              2.0f     
+#define TARGET_MM            2.0f     
+#define ACTUATOR_SPEED_KMPH  30.0f   
+#define STEPPER_MAX_SPEED    4000     
+#define STEPPER_ACCEL        8000     
 
 #define TARGET_STEPS  ((long)((TARGET_MM / LEAD_MM) * STEPS_PER_REV))
 
